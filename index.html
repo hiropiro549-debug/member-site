@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>伝わるデザイン講座 | 会員サイト</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --sky: #A8D8EA;
+      --sky-light: #E8F6FB;
+      --sky-mid: #C5E8F5;
+      --mimosa: #F5D547;
+      --mimosa-light: #FDF4C0;
+      --mimosa-mid: #F9E87A;
+      --white: #FFFFFF;
+      --text: #3D3D3D;
+      --text-light: #777;
+      --accent: #5BA4C8;
+      --green: #7EC8A4;
+    }
+
+    body {
+      font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+      background: var(--sky-light);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ヘッダー */
+    header {
+      background: linear-gradient(135deg, var(--sky) 0%, var(--sky-mid) 50%, var(--mimosa-light) 100%);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(90,164,200,0.15);
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .logo span {
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-light);
+      letter-spacing: 0.1em;
+    }
+
+    .header-badge {
+      background: var(--mimosa);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      background: linear-gradient(160deg, var(--sky) 0%, var(--sky-mid) 40%, var(--mimosa-light) 100%);
+      padding: 48px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '🌿';
+      position: absolute;
+      font-size: 80px;
+      opacity: 0.12;
+      top: -10px;
+      left: -10px;
+    }
+
+    .hero::after {
+      content: '✿';
+      position: absolute;
+      font-size: 100px;
+      opacity: 0.1;
+      bottom: -20px;
+      right: -10px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--mimosa);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 0.1em;
+    }
+
+    .hero h1 {
+      font-size: clamp(20px, 5vw, 30px);
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--text);
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .hero-goals {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .hero-goal {
+      background: var(--white);
+      border: 1.5px solid var(--sky);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* 進捗バー */
+    .progress-section {
+      max-width: 900px;
+      margin: -20px auto 0;
+      padding: 0 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .progress-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: 0 4px 20px rgba(90,164,200,0.15);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .progress-info {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .progress-info h3 {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 6px;
+    }
+
+    .progress-bar-wrap {
+      background: var(--sky-light);
+      border-radius: 10px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      background: linear-gradient(90deg, var(--sky), var(--accent));
+      height: 100%;
+      border-radius: 10px;
+      width: 10%;
+      transition: width 0.5s;
+    }
+
+    .progress-num {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    .progress-stats {
+      display: flex;
+      gap: 16px;
+    }
+
+    .stat-box {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    /* メインコンテンツ */
+    .main {
+      max-width: 900px;
+      margin: 24px auto;
+      padding: 0 16px 60px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--sky), transparent);
+    }
+
+    /* 章カード */
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chapter-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(90,164,200,0.08);
+      border: 1.5px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .chapter-card:hover {
+      border-color: var(--sky);
+      box-shadow: 0 4px 20px rgba(90,164,200,0.18);
+      transform: translateY(-1px);
+    }
+
+    .chapter-card.locked {
+      opacity: 0.6;
+    }
+
+    .chapter-header {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      gap: 16px;
+      cursor: pointer;
+    }
+
+    .chapter-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .chapter-card.completed .chapter-num {
+      background: linear-gradient(135deg, var(--green), #5aaa84);
+    }
+
+    .chapter-card.locked .chapter-num {
+      background: linear-gradient(135deg, #ccc, #aaa);
+    }
+
+    .chapter-info {
+      flex: 1;
+    }
+
+    .chapter-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--sky-light);
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-bottom: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .chapter-card.completed .chapter-tag {
+      color: var(--green);
+      background: #e8f8f0;
+    }
+
+    .chapter-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .chapter-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    .chapter-status {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+
+    .status-badge.done {
+      background: #e8f8f0;
+      color: var(--green);
+    }
+
+    .status-badge.progress {
+      background: var(--mimosa-light);
+      color: #b8960a;
+    }
+
+    .status-badge.not-started {
+      background: var(--sky-light);
+      color: var(--accent);
+    }
+
+    .status-badge.locked {
+      background: #f0f0f0;
+      color: #aaa;
+    }
+
+    /* 展開パネル */
+    .chapter-body {
+      display: none;
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--sky-light);
+    }
+
+    .chapter-card.open .chapter-body {
+      display: block;
+    }
+
+    .chapter-card.open .chapter-header {
+      background: var(--sky-light);
+    }
+
+    /* 動画エリア */
+    .video-area {
+      background: var(--text);
+      border-radius: 12px;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 16px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder {
+      text-align: center;
+      color: var(--white);
+    }
+
+    .video-placeholder .play-btn {
+      width: 56px;
+      height: 56px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      font-size: 22px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .video-placeholder .play-btn:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    .video-placeholder p {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    /* コンテンツリスト */
+    .content-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .content-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--sky-light);
+      border-radius: 10px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .content-item:hover {
+      background: var(--sky-mid);
+    }
+
+    .content-item .icon {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .content-item .label {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .content-item .arrow {
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    /* ワーク提出 */
+    .work-section {
+      margin-top: 16px;
+      background: var(--mimosa-light);
+      border-radius: 12px;
+      padding: 16px;
+      border-left: 4px solid var(--mimosa);
+    }
+
+    .work-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #8a6e00;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .work-desc {
+      font-size: 12px;
+      color: var(--text-light);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .work-btn {
+      display: inline-block;
+      background: var(--mimosa);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .work-btn:hover {
+      background: var(--mimosa-mid);
+      transform: translateY(-1px);
+    }
+
+    .work-btn.submitted {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    /* お知らせ */
+    .notice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .notice-item {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(90,164,200,0.08);
+    }
+
+    .notice-date {
+      font-size: 11px;
+      color: var(--text-light);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+
+    .notice-text {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .notice-new {
+      display: inline-block;
+      background: var(--mimosa);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 6px;
+      margin-right: 6px;
+    }
+
+    /* サポート情報 */
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .support-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(90,164,200,0.08);
+    }
+
+    .support-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .support-name {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .support-desc {
+      font-size: 11px;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* フッター */
+    footer {
+      background: var(--accent);
+      color: var(--white);
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 600px) {
+      .hero { padding: 32px 16px 44px; }
+      .progress-card { flex-direction: column; align-items: flex-start; }
+      .progress-stats { width: 100%; justify-content: space-around; }
+      .chapter-title { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      伝わるデザイン講座
+      <span>MEMBER'S SITE</span>
+    </div>
+    <div class="header-badge">✦ 受講中</div>
+  </div>
+</header>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="hero-tag">✦ 3ヶ月サポートプログラム</div>
+  <h1>Canvaで<em>「行動させるバナー」</em>を<br>作れるようになる講座</h1>
+  <p class="hero-sub">
+    LINE配信文から「何を抜き出して」「どう見せるか」を学び<br>
+    そのまま案件に入れるレベルのデザイン力を身につけましょう
+  </p>
+  <div class="hero-goals">
+    <div class="hero-goal">✔ バナーが作れる</div>
+    <div class="hero-goal">✔ 意図を説明できる</div>
+    <div class="hero-goal">✔ LINE→デザイン変換できる</div>
+  </div>
+</div>
+
+<!-- 進捗カード -->
+<div class="progress-section">
+  <div class="progress-card">
+    <div class="progress-info">
+      <h3>📊 あなたの進捗</h3>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" style="width: 10%"></div>
+      </div>
+      <div class="progress-num">1 / 10 章完了</div>
+    </div>
+    <div class="progress-stats">
+      <div class="stat-box">
+        <div class="stat-num">1</div>
+        <div class="stat-label">動画視聴済</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">0</div>
+        <div class="stat-label">ワーク提出済</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">83</div>
+        <div class="stat-label">残り日数</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- メインコンテンツ -->
+<div class="main">
+
+  <!-- お知らせ -->
+  <div class="section-title">📢 お知らせ</div>
+  <div class="notice-list">
+    <div class="notice-item">
+      <div class="notice-date">03/19</div>
+      <div class="notice-text">
+        <span class="notice-new">NEW</span>
+        第①章「マインド・前提」の動画をアップしました！まずここから視聴してください🎬
+      </div>
+    </div>
+    <div class="notice-item">
+      <div class="notice-date">03/15</div>
+      <div class="notice-text">
+        今月の添削会は <strong>3/28（金）20:00〜</strong> です。ワーク提出をお忘れなく！
+      </div>
+    </div>
+    <div class="notice-item">
+      <div class="notice-date">03/01</div>
+      <div class="notice-text">
+        ご受講おめでとうございます🌸 サポート期間は <strong>3ヶ月間</strong> です。一緒に頑張りましょう！
+      </div>
+    </div>
+  </div>
+
+  <!-- 章一覧 -->
+  <div class="section-title">📚 カリキュラム</div>
+  <div class="chapter-list">
+
+    <!-- 第①章（開放済・進行中） -->
+    <div class="chapter-card open" id="ch1">
+      <div class="chapter-header" onclick="toggleChapter('ch1')">
+        <div class="chapter-num">①</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 1</div>
+          <div class="chapter-title">マインド・前提（超重要）</div>
+          <div class="chapter-meta">
+            <span>🎬 動画1本</span>
+            <span>📝 ワーク1つ</span>
+          </div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge progress">▶ 受講中</div>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="video-area">
+          <div class="video-placeholder">
+            <div class="play-btn">▶</div>
+            <p>動画URLをここに設定します</p>
+          </div>
+        </div>
+        <div class="content-list">
+          <div class="content-item">
+            <span class="icon">📄</span>
+            <span class="label">第①章 テキスト資料</span>
+            <span class="arrow">→</span>
+          </div>
+          <div class="content-item">
+            <span class="icon">📋</span>
+            <span class="label">ワークシート（PDF）</span>
+            <span class="arrow">→</span>
+          </div>
+        </div>
+        <div class="work-section">
+          <div class="work-title">✏️ ワーク提出</div>
+          <div class="work-desc">
+            「あなたにとってデザインとは何か？」を言語化して提出してください。<br>
+            締切：受講開始から7日以内
+          </div>
+          <a href="#" class="work-btn">ワークを提出する →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第②章 -->
+    <div class="chapter-card" id="ch2">
+      <div class="chapter-header" onclick="toggleChapter('ch2')">
+        <div class="chapter-num">②</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 2</div>
+          <div class="chapter-title">Canva基礎（操作）</div>
+          <div class="chapter-meta">
+            <span>🎬 動画1本</span>
+            <span>📝 ワーク1つ</span>
+          </div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge not-started">● 未受講</div>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="video-area">
+          <div class="video-placeholder">
+            <div class="play-btn">▶</div>
+            <p>動画URLをここに設定します</p>
+          </div>
+        </div>
+        <div class="content-list">
+          <div class="content-item"><span class="icon">📄</span><span class="label">第②章 テキスト資料</span><span class="arrow">→</span></div>
+          <div class="content-item"><span class="icon">📋</span><span class="label">ワークシート（PDF）</span><span class="arrow">→</span></div>
+        </div>
+        <div class="work-section">
+          <div class="work-title">✏️ ワーク提出</div>
+          <div class="work-desc">Canvaで名刺を1枚作成して提出してください。</div>
+          <a href="#" class="work-btn">ワークを提出する →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第③章（核） -->
+    <div class="chapter-card" id="ch3">
+      <div class="chapter-header" onclick="toggleChapter('ch3')">
+        <div class="chapter-num">③</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 3 ★核</div>
+          <div class="chapter-title">情報設計（ここが核！）</div>
+          <div class="chapter-meta">
+            <span>🎬 動画1本</span>
+            <span>📝 ワーク1つ</span>
+          </div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge not-started">● 未受講</div>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="video-area">
+          <div class="video-placeholder"><div class="play-btn">▶</div><p>動画URLをここに設定します</p></div>
+        </div>
+        <div class="content-list">
+          <div class="content-item"><span class="icon">📄</span><span class="label">第③章 テキスト資料</span><span class="arrow">→</span></div>
+          <div class="content-item"><span class="icon">📋</span><span class="label">LINE文→情報設計ワークシート</span><span class="arrow">→</span></div>
+        </div>
+        <div class="work-section">
+          <div class="work-title">✏️ ワーク提出</div>
+          <div class="work-desc">サンプルLINE文から情報を抜き出し、優先順位をつけたシートを提出してください。</div>
+          <a href="#" class="work-btn">ワークを提出する →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第④〜⑧章（ロック） -->
+    <div class="chapter-card locked" id="ch4">
+      <div class="chapter-header" onclick="toggleChapter('ch4')">
+        <div class="chapter-num">④</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 4</div>
+          <div class="chapter-title">レイアウト基礎</div>
+          <div class="chapter-meta"><span>🎬 動画1本</span><span>📝 ワーク1つ</span></div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge locked">🔒 ロック中</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter-card locked" id="ch5">
+      <div class="chapter-header" onclick="toggleChapter('ch5')">
+        <div class="chapter-num">⑤</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 5</div>
+          <div class="chapter-title">視線誘導</div>
+          <div class="chapter-meta"><span>🎬 動画1本</span><span>📝 ワーク1つ</span></div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge locked">🔒 ロック中</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter-card locked" id="ch6">
+      <div class="chapter-header" onclick="toggleChapter('ch6')">
+        <div class="chapter-num">⑥</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 6</div>
+          <div class="chapter-title">フォント</div>
+          <div class="chapter-meta"><span>🎬 動画1本</span><span>📝 ワーク1つ</span></div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge locked">🔒 ロック中</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter-card locked" id="ch7">
+      <div class="chapter-header" onclick="toggleChapter('ch7')">
+        <div class="chapter-num">⑦</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 7</div>
+          <div class="chapter-title">カラー</div>
+          <div class="chapter-meta"><span>🎬 動画1本</span><span>📝 ワーク1つ</span></div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge locked">🔒 ロック中</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter-card locked" id="ch8">
+      <div class="chapter-header" onclick="toggleChapter('ch8')">
+        <div class="chapter-num">⑧</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 8</div>
+          <div class="chapter-title">モデリング・テイスト</div>
+          <div class="chapter-meta"><span>🎬 動画1本</span><span>📝 ワーク1つ</span></div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge locked">🔒 ロック中</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第⑨章 -->
+    <div class="chapter-card locked" id="ch9">
+      <div class="chapter-header" onclick="toggleChapter('ch9')">
+        <div class="chapter-num">⑨</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 9</div>
+          <div class="chapter-title">実践①（バナー制作）</div>
+          <div class="chapter-meta"><span>🎬 動画1本</span><span>📝 課題提出</span></div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge locked">🔒 ロック中</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第⑩章 -->
+    <div class="chapter-card locked" id="ch10">
+      <div class="chapter-header" onclick="toggleChapter('ch10')">
+        <div class="chapter-num">⑩</div>
+        <div class="chapter-info">
+          <div class="chapter-tag">CHAPTER 10 🎯最終</div>
+          <div class="chapter-title">実践②（プロモーション）</div>
+          <div class="chapter-meta"><span>🎬 動画1本</span><span>📝 最終課題</span></div>
+        </div>
+        <div class="chapter-status">
+          <div class="status-badge locked">🔒 ロック中</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- サポート内容 -->
+  <div class="section-title">🤝 3ヶ月サポート内容</div>
+  <div class="support-grid">
+    <div class="support-card">
+      <div class="support-icon">🎬</div>
+      <div class="support-name">動画コンテンツ</div>
+      <div class="support-desc">全10章の動画を<br>自分のペースで視聴</div>
+    </div>
+    <div class="support-card">
+      <div class="support-icon">✏️</div>
+      <div class="support-name">ワーク添削</div>
+      <div class="support-desc">各章のワークを<br>丁寧にフィードバック</div>
+    </div>
+    <div class="support-card">
+      <div class="support-icon">👥</div>
+      <div class="support-name">添削会（月1回）</div>
+      <div class="support-desc">Zoom開催<br>リアルタイムで学べる</div>
+    </div>
+    <div class="support-card">
+      <div class="support-icon">💬</div>
+      <div class="support-name">LINEサポート</div>
+      <div class="support-desc">質問・相談を<br>LINEで受付</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 伝わるデザイン講座 | 新頭 綾香
+</footer>
+
+<script>
+  // ===== 動画URL設定 =====
+  // ここにYouTubeやVimeoの埋め込みURLを設定する
+  // 動画がまだない章は空文字のままでOK（プレースホルダーが表示される）
+  const VIDEO_URLS = {
+    ch1: '',  // 例: 'https://www.youtube.com/embed/XXXXX'
+    ch2: '',
+    ch3: '',
+    ch4: '',
+    ch5: '',
+    ch6: '',
+    ch7: '',
+    ch8: '',
+    ch9: '',
+    ch10: ''
+  };
+
+  // ===== ロック解除設定 =====
+  // true = 開放、false = ロック
+  // 受講生の進捗に応じてここを変更するか、
+  // 将来的にはlocalStorageやサーバー連携で自動管理
+  const CHAPTER_ACCESS = {
+    ch1: true,
+    ch2: true,
+    ch3: true,
+    ch4: false,
+    ch5: false,
+    ch6: false,
+    ch7: false,
+    ch8: false,
+    ch9: false,
+    ch10: false
+  };
+
+  // ===== 進捗管理 =====
+  const PROGRESS_KEY = 'design_course_progress';
+
+  function loadProgress() {
+    try {
+      return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
+    } catch { return {}; }
+  }
+
+  function saveProgress(data) {
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(data));
+  }
+
+  // ===== 初期化 =====
+  function init() {
+    const progress = loadProgress();
+
+    // ロック解除の適用
+    Object.keys(CHAPTER_ACCESS).forEach(id => {
+      const card = document.getElementById(id);
+      if (!card) return;
+
+      if (CHAPTER_ACCESS[id]) {
+        card.classList.remove('locked');
+        // ロック中バッジを更新
+        const badge = card.querySelector('.status-badge');
+        if (badge && badge.classList.contains('locked')) {
+          badge.classList.remove('locked');
+          badge.classList.add('not-started');
+          badge.textContent = '● 未受講';
+        }
+      }
+    });
+
+    // 動画URLの適用
+    Object.keys(VIDEO_URLS).forEach(id => {
+      if (!VIDEO_URLS[id]) return;
+      const card = document.getElementById(id);
+      if (!card) return;
+      const videoArea = card.querySelector('.video-area');
+      if (!videoArea) return;
+
+      videoArea.innerHTML = `
+        <iframe
+          src="${VIDEO_URLS[id]}"
+          style="width:100%;height:100%;border:none;border-radius:12px;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>`;
+    });
+
+    // 完了済みの章を復元
+    Object.keys(progress).forEach(id => {
+      if (progress[id] === 'completed') {
+        markCompleted(id, false);
+      }
+    });
+
+    updateProgressBar();
+  }
+
+  function markCompleted(id, save = true) {
+    const card = document.getElementById(id);
+    if (!card) return;
+    card.classList.add('completed');
+    const badge = card.querySelector('.status-badge');
+    if (badge) {
+      badge.className = 'status-badge done';
+      badge.textContent = '✔ 完了';
+    }
+    if (save) {
+      const progress = loadProgress();
+      progress[id] = 'completed';
+      saveProgress(progress);
+      updateProgressBar();
+    }
+  }
+
+  function updateProgressBar() {
+    const total = Object.keys(CHAPTER_ACCESS).length;
+    const completed = document.querySelectorAll('.chapter-card.completed').length;
+    const bar = document.querySelector('.progress-bar');
+    const num = document.querySelector('.progress-num');
+    const statNum = document.querySelector('.stat-num');
+
+    if (bar) bar.style.width = (completed / total * 100) + '%';
+    if (num) num.textContent = completed + ' / ' + total + ' 章完了';
+    if (statNum) statNum.textContent = completed;
+  }
+
+  function toggleChapter(id) {
+    const card = document.getElementById(id);
+    if (card.classList.contains('locked')) return;
+    card.classList.toggle('open');
+  }
+
+  // ページ読み込み時に初期化
+  init();
+</script>
+
+</body>
+</html>
